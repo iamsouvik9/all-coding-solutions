@@ -1,4 +1,4 @@
-1.		INSERTION SORT:
+1.		 INSERTION SORT:
 
 #include<stdio.h>  
 void main ()  
