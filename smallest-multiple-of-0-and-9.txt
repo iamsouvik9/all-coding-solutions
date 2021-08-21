@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ct 10000
+
+vector<string> vec;
+
+void generate()
+{
+    queue<string> q;
+    q.push("9");
+    for(int i=0;i<ct;++i)
+    {
+        string s1=q.front();
+        q.pop();
+
+        vec.push_back(s1);
+        string s2=s1;
+
+        q.push(s1.append("0"));
+        q.push(s2.append("9"));
+    }
+}
+
+string check(int n)
+{
+    for(int i=0;i<vec.size();++i)
+    {
+        if(stoi(vec[i])%n==0)
+            return vec[i];
+    }
+}
+
+int main()
+{
+    generate();
+    int n=7;
+    cout<<check(n)<<endl;
+    return 0;
+
+}
