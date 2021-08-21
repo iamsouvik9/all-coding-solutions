@@ -1,0 +1,42 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int longest(string s)
+{
+  stack<char> st;
+  int res=0;
+  for(int i=0;i<s.length();++i)
+  {
+      if(s[i]=='(')
+      {
+          st.push(s[i]);
+      }
+      else
+      {
+          if(st.empty())
+          {
+              st.push(s[i]);
+          }
+          char p =st.top();
+          if(p=='(' && s[i]==')')
+          {
+              res+=2;
+              st.pop();
+          }
+          
+      }
+
+  }
+
+   return res; 
+}
+
+
+int main()
+{
+    string s="()(()";
+    int l= longest(s);
+    std::cout<<"LONGEST : "<<l<<endl;
+    return 0;
+}
