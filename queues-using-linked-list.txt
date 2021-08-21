@@ -1,0 +1,113 @@
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+	int data;
+	struct node *next;
+};
+
+struct node *front;
+struct node *rear;
+
+void insert();
+void del();
+void display();
+
+int main()
+{
+	int i=0;
+	int ch;
+	while(i<5)
+	{
+	    cout<<"Enter : ";
+		cin>>ch;
+		switch(ch)
+		{
+			case 1:
+			insert();
+			break;
+			case 2:
+			del();
+			break;
+			case 3:
+			display();
+			break;
+			default:
+			cout<<"wrong choice\n";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+
+void insert()  
+{  
+    struct node *ptr;  
+    int item;   
+      
+    ptr = (struct node *) malloc (sizeof(struct node));  
+    if(ptr == NULL)  
+    {  
+        printf("\nOVERFLOW\n");  
+        return;  
+    }  
+    else  
+    {   
+        printf("\nEnter value: ");  
+        scanf("%d",&item);  
+        ptr -> data = item;  
+        if(front == NULL)  
+        {  
+            front = ptr;  
+            rear = ptr;   
+            front -> next = NULL;  
+            rear -> next = NULL;  
+        }  
+        else   
+        {  
+            rear -> next = ptr;  
+            rear = ptr;  
+            rear->next = NULL;  
+        }  
+    }  
+}    
+
+void del()
+{
+	struct node *ptr;
+	if(front == NULL)
+	{
+		cout<<"Underflow\n";
+		return ;
+	}
+	else
+	{
+		ptr = front;
+		front= front->next;
+		free(ptr);
+	}
+}
+
+void display()
+{
+	struct node *ptr;
+	ptr = front;
+	if(front==NULL)
+	{
+		cout<<"The queue is empty\n";
+		return ;
+	}
+	else
+	{
+		while(ptr!=NULL)
+		{
+			printf("%d \n", ptr->data);
+			ptr = ptr->next;
+
+		}
+	}
+}
