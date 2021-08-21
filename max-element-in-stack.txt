@@ -1,0 +1,61 @@
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+class stackwithmax
+{
+	stack<int> mainstack;
+	stack<int> trackstack;
+
+	public:
+	 void push(int x)
+	 {
+		 mainstack.push(x);
+		 if(mainstack.size()==1)
+		 {
+			 trackstack.push(x);
+			 return;
+		 }
+
+		 else
+		 {
+			 if(x > trackstack.top())
+			 {
+				 trackstack.push(x);
+				 
+			 }
+			 else
+			 {
+				 trackstack.push(trackstack.top());
+			 }
+		 }
+	 }
+
+	 int getmax()
+	 {
+		 return trackstack.top();
+	 }
+
+	 void pop()
+	 {
+		 trackstack.pop();
+		 mainstack.pop();
+	 }
+
+};
+
+int main()
+{
+	stackwithmax s;
+	s.push(20);
+	cout<<s.getmax()<<endl;
+	s.push(10);
+	cout<<s.getmax()<<endl;
+	s.push(30);
+	cout<<s.getmax()<<endl;
+	s.push(40);
+	cout<<s.getmax()<<endl;
+	return 0;
+}
