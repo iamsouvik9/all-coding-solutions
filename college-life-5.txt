@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(0); 
+	ll t;
+	cin>>t;
+	while(t--)
+	{
+		ll n,m;
+		cin>>n>>m;
+		vector<pair<int,int>>event;
+		while(n--)
+		{
+			int f;
+			cin>>f;
+			event.push_back({f,0});
+		}
+		while(m--)
+	{
+		int c;
+		cin>>c;
+		event.push_back({c,1});
+	}
+	sort(event.begin(), event.end());
+	ll ans=0;
+	ll curr=0;
+	vector<pair<int,int>>::iterator it;
+    for(it = event.begin(); it != event.end(); ++it)
+	{
+		if(it->second != curr)
+		{
+			ans++;
+			curr=1-curr;
+		}
+	}
+	cout<<ans<<endl;
+	}
+	return 0;
+}
