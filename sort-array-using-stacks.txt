@@ -1,0 +1,52 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+stack<int> sortstack(stack<int> s)
+{
+	stack<int> temp;
+	while(!s.empty())
+	{
+		int x=s.top();
+		s.pop();
+
+		while(!temp.empty()  &&  temp.top() < x)
+		{
+			s.push(temp.top());
+			temp.pop();
+		}
+		temp.push(x);
+	}
+	return temp;
+
+}
+
+void sort_stack_array(int arr[], int n)
+{
+	stack<int> s;
+	for(int i=0;i<n;++i)
+	{
+		s.push(arr[i]);
+		
+	}
+
+	stack<int> temp = sortstack(s);
+    for(int i=0;i<n;++i)
+	{
+		arr[i]=temp.top();
+		temp.pop();
+	}
+}
+int main()
+{
+	int arr[5]={7,8,2,5,9};
+
+	int n = sizeof(arr)/sizeof(arr[0]);
+	sort_stack_array(arr, n);
+
+	for(int i=0;i<n;++i)
+	{
+		cout<<arr[i]<<"  ";
+	}
+	return 0;
+}
