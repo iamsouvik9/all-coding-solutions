@@ -1,0 +1,42 @@
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void reverse(string s)
+{
+  stack<char> st;
+
+  for(int i=0;i<s.length();++i)
+  {
+    if(s[i]  != ' ')
+    {
+         st.push(s[i]);
+    }
+    else
+    {
+      while(!st.empty())
+      {
+        char p =st.top();
+        st.pop();
+        cout<<p<<"";
+      }
+      cout<<" ";
+    }
+  
+  }
+  while(!st.empty())
+      {
+        char p =st.top();
+        st.pop();
+        cout<<p<<"";
+      }
+
+}
+
+int main()
+{
+  string s = "GEEKS FOR GEEKS";
+  reverse(s);
+  return 0;
+}
