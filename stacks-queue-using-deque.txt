@@ -1,0 +1,186 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct DeQueNode
+{
+	int data;
+	DeQueNode *next;
+	DeQueNode *prev;
+};
+
+class Deque
+{
+	DeQueNode *head = NULL;
+	DeQueNode *tail = NULL;
+
+public:
+	bool isempty()
+	{
+		if (head == NULL)
+			return true;
+		return false;
+	}
+
+	int size()
+	{
+		struct DeQueNode *temp = head;
+		int l = 0;
+		if (!isempty())
+		{
+			while (temp != NULL)
+			{
+				l++;
+			}
+			return l;
+		}
+		return 0;
+	}
+
+	void insert_front(int x)
+	{
+		struct DeQueNode *temp= (struct DeQueNode *)malloc(sizeof(struct DeQueNode));
+		temp->data=x;
+
+		if(head==NULL)
+		{
+			head=tail=temp;
+			temp->next=temp->prev=NULL;
+		}
+		else
+
+		{
+			head->prev=temp;
+			temp->next=head;
+			temp->prev=NULL;
+			head=temp;
+		}
+	}
+
+	void insert_last(int x)
+	{
+		struct DeQueNode *temp= (struct DeQueNode *)malloc(sizeof(struct DeQueNode));
+		temp->data=x;
+
+		if(head==NULL)
+		{
+			head=tail=temp;
+			temp->next=temp->prev=NULL;
+		}
+		else
+
+		{
+			tail->next=temp;
+			temp->prev=tail;
+			temp->next=NULL;
+			tail=temp;
+		}
+	}
+
+	void remove_first()
+	{
+		if(!isempty())
+		{
+			struct DeQueNode *temp=head;
+			head=head->next;
+
+			if(head)
+			{
+				head->prev=NULL;
+				free(temp);
+			}
+			if(head==NULL)
+			{
+				tail=NULL;
+				free(temp);
+			}
+		}
+		cout<<"Empty\n";
+	}
+
+	void remove_last()
+	{
+		if(!isempty())
+		{
+			struct DeQueNode *temp=tail;
+			tail=tail->prev;
+			if(tail)
+			{
+				tail->next=NULL;
+				free(temp);
+			}
+			if(tail==NULL)
+			{
+					head =NULL;
+					free(temp);
+			}
+		}
+		cout<<"Empty\n";
+	}
+
+	void display()
+	{
+		if(!isempty())
+		{
+			struct DeQueNode *temp=head;
+			while(temp != NULL)
+			{
+				cout<<temp->data<<"  ";
+				temp=temp->next;
+			}
+			cout<<"\n";
+		}
+		cout<<"Empty\n";
+	}
+};
+
+
+class Stack : public Deque
+{
+	public:
+	void push(int x)
+	{
+			insert_last(x);
+	}
+	void pop()
+	{
+		remove_last();
+	}
+};
+
+class Queue : public Deque
+{
+	public :
+
+	void enqueue(int x)
+	{
+		insert_last(x);
+	}
+	void dequeue()
+	{
+		remove_first();
+	}
+};
+
+int main()
+{
+	Stack st;
+	st.push(30);
+	st.push(40);
+	st.push(50);
+
+	st.display();
+	st.pop();
+	st.display();
+
+
+	Queue q;
+	q.enqueue(70);
+	q.enqueue(80);
+	q.enqueue(90);
+
+	q.display();
+	q.dequeue();
+	q.display();
+
+}
