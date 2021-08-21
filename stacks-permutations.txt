@@ -1,0 +1,61 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool check(int inp[], int out[], int n)
+{
+	queue<int> input, output;
+	for(int i=0;i<n;++i)
+	{
+		input.push(inp[i]);
+	}
+	for(int i=0;i<n;++i)
+	{
+		output.push(out[i]);
+	}
+	stack<int> temp;
+	while(!input.empty())
+	{
+		int ele = input.front();
+		input.pop();
+
+		if(output.front()==ele)
+		{
+			output.pop();
+			while(!temp.empty())
+			{
+				if(temp.top() ==  output.front())
+				{
+					temp.pop();
+					output.pop();
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			temp.push(ele);
+		}
+	}
+
+    return (temp.empty() && input.empty());
+}
+
+int main()
+{
+	int inp[3]={1,2,3};
+	int out[3]={3,1,2};
+	if(check(inp,out,3))
+	{
+		cout<<"YES"<<endl;
+	}
+	else
+
+	{
+		cout<<"NO"<<endl;
+	}
+	return 0;
+}
