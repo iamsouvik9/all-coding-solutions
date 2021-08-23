@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(queue<int> q, int n)
+{
+	stack<int> st;
+	int expected = 1;
+	while (!q.empty())
+	{
+		int fr = q.front();
+		q.pop();
+		if (fr == expected)
+		{
+			expected++;
+		}
+		else
+		{
+			if (st.empty())
+				st.push(fr);
+
+			else if (!st.empty() && st.top() < fr)
+				return false;
+			else
+				st.push(fr);
+		}
+	}
+	while (!st.empty() && st.top() == expected)
+	{
+		expected++;
+		st.pop();
+	}
+	if (expected - 1 == n && st.empty())
+	{
+		return true;
+	}
+	return false;
+}
+int main()
+{
+	queue<int> q;
+	q.push(5);
+	q.push(1);
+	q.push(2);
+	q.push(3);
+	q.push(4);
+
+	int n = q.size();
+
+	if (check(q, n))
+	{
+		cout << "Yes possible\n";
+	}
+	else
+	{
+		cout << "Not possible\n";
+	}
+	return 0;
+}
