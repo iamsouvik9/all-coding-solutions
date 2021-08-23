@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int n;
+	cin>>n;
+	int arr[n];
+	int max=0;
+	for(int i=0;i<n;++i)
+	{
+		cin>>arr[i];
+		if(max<arr[i])
+		{
+			max=arr[i];
+		}
+	}
+	int m;
+	cin>>m;
+	int chk[m];
+	for(int i=0;i<m;++i)
+	{
+		cin>>chk[i];
+	}
+	int freq[max+1]={0};
+	for(int i=0;i<n;++i)
+	{
+		freq[arr[i]]++;
+	}
+	for(int i=0;i<m;++i)
+	{
+		if(chk[i]>max)
+		{
+			cout<<"-1\n";
+		}
+		else
+		{
+			if(freq[chk[i]]>=0)
+			{
+				cout<<freq[chk[i]]<<endl;
+			}
+		}
+	}
+	return 0;
+}
