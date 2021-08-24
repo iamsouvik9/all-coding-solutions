@@ -1,0 +1,45 @@
+Write a function that counts the number of times a given int occurs in a Linked List
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+int freq=0;
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+int frequency(Node *head, int num)
+{
+    if(head ==NULL)
+        return freq;
+    
+    if(head->data==num)
+        freq++;
+    
+    return frequency(head->next, num);
+    
+
+}
+int main()
+{
+    Node *head=NULL;
+    push(&head, 1);
+    push(&head, 3);
+    push(&head, 1);
+    push(&head, 2);
+    push(&head, 1);
+ 
+    /* Check the count function */
+    cout << "count of 1 is " << frequency(head, 1);
+    return 0;
+}
