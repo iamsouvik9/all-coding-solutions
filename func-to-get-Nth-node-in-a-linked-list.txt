@@ -1,0 +1,45 @@
+
+WRITE A FUNCTION TO GET Nth NODE IN A LINKED LIST (USING RECURSION)
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+int getNth(Node *head, int index)
+{
+    if(head==NULL)
+        return -1;
+    
+    if(index==0)
+        return (head->data);
+    
+    return getNth(head->next, index-1);
+}
+int main()
+{
+    Node *head=NULL;
+    push(&head, 1);
+    push(&head, 4);
+    push(&head, 1);
+    push(&head, 12);
+    push(&head, 1);
+ 
+    cout << "Element at index 3 is " << getNth(head, 3);
+    return 0;
+}
