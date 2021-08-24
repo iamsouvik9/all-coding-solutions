@@ -1,0 +1,65 @@
+
+Function to check if a singly linked list is palindrome
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+
+bool checkpalin(Node *head)
+{
+    stack<int> s;
+    Node *slow=head;
+
+    while(slow!=NULL)
+    {
+        s.push(slow->data);
+        slow=slow->next;
+    }
+
+    while(head != NULL)
+    {
+        int t=s.top();
+        s.pop();
+        if(head->data != t)
+            return false;
+        head=head->next;
+    }
+    return true;
+}
+
+int main()
+{
+    Node *head =NULL;
+    push(&head,1);
+    push(&head,2);
+    push(&head,2);
+    push(&head,3);
+    push(&head,2);
+    push(&head,1);
+
+    if(checkpalin(head))
+    {
+        cout<<"YES PALINDROME\n";
+    }
+    else
+    {
+        cout<<"NOT PALINDROME\n";
+    }
+    return 0;
+}
+
