@@ -1,0 +1,50 @@
+DETECT A LOOP IN A LINKED LIST
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    int flag;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+
+bool detect(Node *head)
+{
+    while(head !=NULL)
+    {
+        if (head->flag==1)
+            return true;
+        
+        head->flag=1;
+        head=head->next;
+    }
+}
+int main()
+{
+    Node *head=NULL;
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 15);
+    push(&head, 10);
+ 
+    /* Create a loop for testing */
+    head->next->next->next->next = head;
+ 
+    if (detect(head))
+        cout << "Loop found";
+    else
+        cout << "No Loop";
+    return 0;
+}
