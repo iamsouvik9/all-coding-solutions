@@ -1,0 +1,53 @@
+Recursive function to print reverse of a linked list without reversing the linked list
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+
+void printReverse(Node *head)
+{
+    if(head == NULL)
+        return;
+    
+    printReverse(head->next);
+
+    cout<<head->data<<" ";
+}
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    
+    Node *head =NULL;
+    push(&head,1);
+    push(&head,2);
+    push(&head,3);
+    push(&head,4);
+    push(&head,5);
+    printReverse(head);
+    display(head);
+    return 0;
+}
