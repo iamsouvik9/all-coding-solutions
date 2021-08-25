@@ -1,0 +1,64 @@
+Reverse a linked list
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+
+void reverse(Node **head_ref)
+{
+    Node *curr = *head_ref;
+    Node *prev=NULL, *next = NULL;
+
+    while(curr != NULL)
+    {
+        next= curr->next;
+
+        curr->next =prev;
+        
+        prev = curr;
+
+        curr = next;
+    } 
+    *head_ref = prev;
+}
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    
+    Node *head =NULL;
+    push(&head, 1);
+    push(&head, 2);
+    push(&head, 3);
+    push(&head ,4);
+    push(&head, 5);
+    cout<<"Before reversing the linked list: ";
+    display(head);
+    reverse(&head);
+    cout<<"\n After reversing the linked list: ";
+    display(head);
+    return 0;
+}
