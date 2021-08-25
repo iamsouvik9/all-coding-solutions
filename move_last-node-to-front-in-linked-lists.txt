@@ -1,0 +1,82 @@
+Move last element to front of a given Linked List
+
+
+Linked list before moving last to front 
+1 2 3 4 5 
+ Linked list after removing last to front 
+5 1 2 3 4
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    (*head_ref)=temp;
+}
+
+void move_to_front(Node **head_ref)
+{
+    if(*head_ref==NULL || (*head_ref)->next==NULL)
+    {
+        return;
+    }
+
+    Node *prev=NULL;
+    Node *last =*head_ref;
+
+    while(last->next != NULL)
+    {
+        prev=last;
+        last=last->next;
+    }
+
+    prev->next=NULL;
+    last->next=*head_ref;
+    *head_ref=last;
+
+
+}
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    Node *head =NULL;
+ 
+    /* The constructed linked list is:
+    1->2->3->4->5->6->7 */
+    push(&head, 7);
+    push(&head, 6);
+    push(&head, 5);
+    push(&head, 4);
+    push(&head, 3);
+    push(&head, 2);
+    push(&head, 1);
+ 
+    cout << "Linked list before calling move_to_front() ";
+    display(head);
+ 
+    move_to_front(&head);
+ 
+    cout << "\nLinked list after calling move_to_front() ";
+    display(head);
+    return 0;
+}
