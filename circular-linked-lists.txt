@@ -1,0 +1,63 @@
+Circular Linked Lists
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=(*head_ref);
+    Node *ptr1= *head_ref;
+
+    if(*head_ref != NULL)
+    {
+        while(ptr1->next != *head_ref)
+            ptr1=ptr1->next;
+        
+        ptr1->next=temp;
+    }
+    else
+    {
+        temp->next=temp;
+    }
+
+    *head_ref=temp;
+}
+
+
+
+void display(Node *node)
+{
+    Node *temp=node;
+    if(node != NULL)
+    {
+        do
+        {
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        } while (temp != node);
+        
+    }
+}
+
+int main()
+{
+    
+    Node *head =NULL;
+    push(&head,1);
+    push(&head,2);
+    push(&head,3);
+    push(&head,4);
+    push(&head,5);
+    display(head);
+    
+    return 0;
+}
