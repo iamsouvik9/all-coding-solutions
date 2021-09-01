@@ -1,0 +1,89 @@
+Inserting in a Binary Tree
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *left, *right;
+};
+
+Node *CreateNode(int d)
+{
+    Node *newNode=new Node;
+    if(!newNode)
+    {
+        cout<<"Memory Error\n";
+        return NULL;
+    }
+
+    newNode->data=d;
+    newNode->left=newNode->right=NULL;
+    return newNode;
+}
+
+Node *insertNode(Node *root, int key)
+{
+    if(root==NULL)
+    {
+        root=CreateNode(key);
+        return root;
+    }
+
+    queue<Node *>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node *temp=q.front();
+        q.pop();
+        if(temp->left !=NULL)
+            q.push(temp->left);
+        else
+        {
+            temp->left=CreateNode(key);
+            return root;
+        }
+
+        if(temp->right != NULL)
+            q.push(temp->right);
+        else
+        {
+            temp->right=CreateNode(key);
+            return root;
+        }
+    }
+}
+
+void Inorder(Node *temp)
+{
+    if(temp==NULL)
+        return ;
+    
+    Inorder(temp->left);
+    cout<<temp->data<<" ";
+    Inorder(temp->right);
+}
+
+int main()
+{
+    Node* root = CreateNode(10);
+    root->left = CreateNode(11);
+    root->left->left = CreateNode(7);
+    root->right = CreateNode(9);
+    root->right->left = CreateNode(15);
+    root->right->right = CreateNode(8);
+ 
+    cout << "Inorder traversal before insertion: ";
+    Inorder(root);
+    cout << endl;
+ 
+    int key = 12;
+    root = insertNode(root, key);
+ 
+    cout << "Inorder traversal after insertion: ";
+    Inorder(root);
+    cout << endl;
+ 
+    return 0;
+}
