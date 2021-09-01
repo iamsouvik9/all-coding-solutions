@@ -1,0 +1,60 @@
+Post Order Traversal using stacks
+
+
+#include<bits/stdc++.h>
+using namespace std;
+struct Node
+{
+    int data;
+    Node *left, *right;
+};
+
+Node *newNode(int d)
+{
+    Node *temp=new Node;
+    temp->data=d;
+    temp->left=temp->right=NULL;
+};
+
+void postOrder(Node *temp)
+{
+    if(temp==NULL)
+        return ;
+
+    stack<Node *> s1,s2;
+    s1.push(temp);
+    Node *node;
+    while(!s1.empty())
+    {
+        node =s1.top();
+        s1.pop();
+        s2.push(node);
+
+        if(node->left!=NULL)
+            s1.push(node->left);
+        
+        if(node->right!=NULL)
+            s1.push(node->right);
+    }
+
+    while(!s2.empty())
+    {
+        node=s2.top();
+        s2.pop();
+        cout<<node->data<<" ";
+    }
+}
+
+int main()
+{
+    Node* root = NULL;
+    root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+    root->right->left = newNode(6);
+    root->right->right = newNode(7);
+    postOrder(root);
+    return 0;
+}
