@@ -1,0 +1,77 @@
+Reverse a doubly linked list
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Node 
+{
+    public:
+    int data;
+    Node *prev;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->prev=NULL;
+    temp->next=(*head_ref);
+    if(*head_ref != NULL)
+    {
+        (*head_ref)->prev=temp;
+    }
+    (*head_ref)=temp;
+}
+
+void reverse(Node **head_ref)
+{
+    Node *temp=NULL;
+    Node *curr=*head_ref;
+
+    while(curr != NULL)
+    {
+        temp=curr->prev;
+        curr->prev=curr->next;
+        curr->next=temp;
+        curr=curr->prev;
+    }
+    if(temp != NULL)
+    {
+        (*head_ref)=temp->prev;
+    }
+}
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    Node* head = NULL;
+     
+    /* Let us create a sorted linked list to test the functions
+    Created linked list will be 10->8->4->2 */
+    push(&head, 2);
+    push(&head, 4);
+    push(&head, 8);
+    push(&head, 10);
+     
+    cout << "Original Linked list" << endl;
+    display(head);
+     
+    /* Reverse doubly linked list */
+    reverse(&head);
+     
+    cout << "\nReversed Linked list" << endl;
+    display(head);        
+
+    return 0;
+}
