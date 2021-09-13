@@ -1,0 +1,89 @@
+Insert value in sorted way in a sorted doubly linked list
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node 
+{
+    public:
+    int data;
+    Node *prev, *next;
+};
+
+Node *getNode(int d)
+{
+    Node *new_node=new Node();
+    new_node->data=d;
+
+    new_node->prev=new_node->next=NULL;
+
+    return new_node;
+}
+
+void sortedInsert(Node **head_ref, Node *new_node)
+{
+    if(*head_ref==NULL)
+        *head_ref=new_node;
+
+    else if((*head_ref)->data  >  new_node->data)
+    {
+        new_node->next=*head_ref;
+        new_node->next->prev=new_node;
+        *head_ref=new_node;
+    }
+
+    else
+    {
+        Node *curr= *head_ref;
+
+        while(curr != NULL  &&  (curr->next->data  <  new_node->data))
+        {
+            curr=curr->next;
+        }
+
+        new_node->next=curr->next;
+        // if the new node is not inserted
+        // at the end of the list
+        if(curr->next != NULL)
+        {
+            new_node->next->prev=new_node;
+        }
+
+        new_node->prev=curr->next;
+        curr->next=new_node;
+    }
+}
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    /* start with the empty doubly linked list */
+    Node *head = NULL;
+ 
+    // insert the following nodes in sorted way
+    Node *new_node = getNode(8);
+    sortedInsert(&head, new_node);
+    new_node = getNode(5);
+    sortedInsert(&head, new_node);
+    new_node = getNode(3);
+    sortedInsert(&head, new_node);
+    new_node = getNode(10);
+    sortedInsert(&head, new_node);
+    new_node = getNode(12);
+    sortedInsert(&head, new_node);
+    new_node = getNode(9);
+    sortedInsert(&head, new_node);
+ 
+    cout << "Created Doubly Linked Listn";
+    display(head);
+    return 0;
+}
