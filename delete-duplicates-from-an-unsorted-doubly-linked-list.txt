@@ -1,0 +1,118 @@
+Delete all duplicates from an unsorted doubly linked list
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int data;
+    Node *prev;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->prev=NULL;
+    temp->next=*head_ref;
+
+    if(*head_ref!=NULL)
+    {
+        (*head_ref)->prev=temp;
+    }
+    *head_ref=temp;
+}
+
+void deleteNode(Node **head_ref, Node *del)
+{
+    if(*head_ref==NULL || del==NULL)
+        return ;
+    
+    if(*head_ref==del)
+        return ;
+    
+    if(del->next != NULL)
+    {
+        del->next->prev=del->prev;
+    }
+
+    if(del->prev != NULL)
+    {
+        del->prev->next=del->next;
+    }
+
+    free(del);
+
+}
+
+void deleteDuplicates(Node **head_ref)
+{
+    if(*head_ref==NULL || (*head_ref)->next ==NULL)
+        return ;
+    
+    Node *ptr1,*ptr2;
+    for(ptr1 =*head_ref; ptr1!= NULL; ptr1=ptr1->next)
+    {
+        ptr2=ptr1->next;
+        while(ptr2!= NULL)
+        {
+            if(ptr2->data==ptr1->data)
+            {
+                // store pointer to the node next to 'ptr2'
+                Node* next_next = ptr2->next;
+ 
+                // delete node pointed to by 'ptr2'
+                deleteNode(head_ref, ptr2);
+ 
+                // update 'ptr2'
+                ptr2 = next_next;
+            }
+            else
+            {
+                ptr2=ptr2->next;
+            }
+        }
+    }
+
+}
+
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+int main()
+{
+    struct Node* head = NULL;
+ 
+    // Create the doubly linked list:
+    // 8<->4<->4<->6<->4<->8<->4<->10<->12<->12
+    push(&head, 12);
+    push(&head, 12);
+    push(&head, 10);
+    push(&head, 4);
+    push(&head, 8);
+    push(&head, 4);
+    push(&head, 6);
+    push(&head, 4);
+    push(&head, 4);
+    push(&head, 8);
+ 
+    cout << "Original Doubly linked list:n";
+    display(head);
+ 
+    /* remove duplicate nodes */
+    deleteDuplicates(&head);
+ 
+    cout << "\nDoubly linked list after "
+            "removing duplicates:n";
+    display(head);
+ 
+    return 0;
+}
