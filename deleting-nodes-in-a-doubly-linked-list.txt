@@ -1,0 +1,84 @@
+Deleting Nodes In a doubly linkd Lists
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int data;
+    Node *prev;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->prev=NULL;
+    temp->next=(*head_ref);
+    if(*head_ref != NULL)
+    {
+        (*head_ref)->prev=temp;
+    }
+    (*head_ref)=temp;
+}
+
+void deleteNode(Node **head_ref, Node *del)
+{
+    if(*head_ref==NULL || del ==NULL)
+        return ;
+
+    if(*head_ref==del)
+        (*head_ref)=del->next;
+    
+
+    if(del->next != NULL)
+    {
+        del->next->prev=del->prev;
+    }
+
+    if(del->prev != NULL)
+    {
+        del->prev->next=del->next;
+    }
+
+    free(del);
+    return ;
+}
+
+
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+
+int main()
+{
+    /* Start with the empty list */
+    Node* head = NULL;
+ 
+    /* Let us create the doubly linked list 10<->8<->4<->2 */
+    push(&head, 2);
+    push(&head, 4);
+    push(&head, 8);
+    push(&head, 10);
+ 
+    cout << "Original Linked list ";
+    display(head);
+ 
+    /* delete nodes from the doubly linked list */
+    deleteNode(&head, head); /*delete first node*/
+    deleteNode(&head, head->next); /*delete middle node*/
+    deleteNode(&head, head->next); /*delete last node*/
+ 
+    /* Modified linked list will be NULL<-8->NULL */
+    cout << "\nModified Linked list ";
+    display(head);
+ 
+    return 0;
+}
