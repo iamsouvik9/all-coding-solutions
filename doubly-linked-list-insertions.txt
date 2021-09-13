@@ -1,0 +1,133 @@
+
+Doubly Linked List Insertions
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int data;
+    Node *prev;
+    Node *next;
+};
+
+void push(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->prev=NULL;
+    temp->next=*head_ref;
+
+    if(*head_ref!=NULL)
+    {
+        (*head_ref)->prev=temp;
+    }
+    *head_ref=temp;
+}
+
+//Insert a node before a given node
+
+void insertBefore(Node **head_ref, Node **next_node, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->prev=(*next_node)->prev;
+    temp->next=*next_node;
+    (*next_node)->prev=temp;
+
+    if(temp->prev != NULL)
+    {
+        temp->prev->next=temp;
+    }
+    else
+    {
+        (*head_ref)=temp;
+    }
+}
+//Insert a node after a given node
+
+void insertAfter(Node *prev_node,int d)
+{
+    //empty node
+    if(prev_node==NULL)
+        return ;
+    
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=prev_node->next;
+    prev_node->next=temp;
+    temp->prev=prev_node->prev;
+
+    if(temp->next != NULL)
+    {
+        temp->next->prev=temp;
+    }
+
+}
+
+//Insert a node at the end
+
+void append(Node **head_ref, int d)
+{
+    Node *temp=new Node();
+    temp->data=d;
+    temp->next=NULL;
+    if(*head_ref==NULL)
+    {
+        temp->prev=NULL;
+        (*head_ref)=temp;
+        return ;
+    }
+    Node *last=(*head_ref);
+    while(last != NULL)
+    {
+        last=last->next;
+    }
+
+    last->next=temp;
+    temp->prev=last;
+    return ;
+}
+void display(Node *node)
+{
+    while(node != NULL)
+    {
+        cout<<node->data<<" ";
+        node=node->next;
+    }
+}
+int main()
+{
+    /* Start with the empty list */
+    struct Node* head = NULL;
+    push(&head, 7);
+ 
+    push(&head, 1);
+ 
+    push(&head, 4);
+ 
+    // Insert 8, before 1. So linked list becomes
+    // 4->8->1->7->NULL
+    insertBefore(&head, &(head->next), 8);
+ 
+    insertAfter(head->next, 9);
+
+    append(&head, 10);
+    cout <<"Created Doubly linked list is: ";
+    display(head);
+ 
+    getchar();
+    return 0;
+}
+ 
+
+
+
+
+
+
+
+
