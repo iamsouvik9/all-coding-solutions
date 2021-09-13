@@ -1,0 +1,74 @@
+Tree traversals(pre-order,post-oreder and inorder traversals)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *left, *right;
+};
+
+Node *newNode(int d)
+{
+    Node *temp=new Node;
+    temp->data=d;
+    temp->left=temp->right=NULL;
+};
+
+void displayInOrder(struct Node *root)
+{
+    if(root == NULL)
+        return;
+    
+    displayInOrder(root->left);
+
+    cout<<root->data<<" ";
+
+    displayInOrder(root->right);
+}
+
+void displayPostOrder(struct Node *root)
+{
+    if(root==NULL)
+        return ;
+    
+    displayPostOrder(root->left);
+
+    displayPostOrder(root->right);
+
+    cout<<root->data<<" ";
+}
+
+void displayPreOrder(struct Node *root)
+{
+    if(root==NULL)
+        return ;
+    
+    cout<<root->data<<" ";
+
+    displayPreOrder(root->left);
+
+    displayPreOrder(root->right);
+}
+
+int main()
+{
+    Node *root = NULL;
+    root = newNode(1);
+    root->left=newNode(2);
+    root->right=newNode(3);
+    root->left->left=newNode(4);
+    root->left->right=newNode(5);
+    cout<<"The preorder traversal is "<<endl;
+    displayPreOrder(root);
+    cout<<endl;
+    cout<<"The inorder traversal list is "<<endl;
+    displayInOrder(root);
+    cout<<endl;
+    cout<<"The postoder traversal list is "<<endl;
+    displayPostOrder(root);
+    cout<<endl;
+    return 0;
+}
+
